@@ -55,7 +55,7 @@ $(function () {
 		return false;
 	});
 
-	$('textarea').on('keyup', function () {
+	$('main').on('keyup', 'textarea', function () {
 		$(this).parent().find('.count').text(--number)
 	});
 
