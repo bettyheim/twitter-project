@@ -20,16 +20,16 @@ $(function () {
 	var renderCompose = function () {
 		var composeTmpl = $('#template-compose').text();
 		var createCompose = Handlebars.compile(composeTmpl);
-		return createCompose;
+		return createCompose()
 	};
 
 	var renderThread = function (user, message) {
 		var threadTmpl = $('#template-thread').text();
 		var createThread = Handlebars.compile(threadTmpl);
-		$('.tweets').append(createThread({
+		return createThread({
 			tweetTemp: renderTweet(user, message),
 			compose: renderCompose()
-		}));
+		});
 	};
 
 	$('main').on('click', 'textarea', function () {
@@ -47,7 +47,7 @@ $(function () {
 		$(this).find('textarea').val('');
 
 		if ($(this).parent('header').length) {
-			renderThread(user, message);
+			$('.tweets').append(renderThread(user, message));
 		} else {
 			$(this).parents('.replies').append(renderTweet(user, message));
 		}
